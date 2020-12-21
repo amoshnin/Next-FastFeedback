@@ -1,5 +1,6 @@
 // PLUGINS IMPORTS //
 import { AuthProvider } from 'lib/auth'
+import { ChakraProvider } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS //
 
@@ -10,9 +11,11 @@ import 'styles/globals.css'
 
 const App = ({ Component, pageProps }) => {
   return (
-    <AuthProvider>
-      <Component {...pageProps} />
-    </AuthProvider>
+    <ChakraProvider>
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
+    </ChakraProvider>
   )
 }
 

@@ -5,7 +5,6 @@ import Head from 'next/head'
 import { useAuth } from 'lib/auth'
 
 // EXTRA IMPORTS //
-import styles from 'styles/Home.module.css'
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -13,14 +12,14 @@ const Index = () => {
   const auth = useAuth()
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Fast Feedback</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Fast Feedback</h1>
+      <main>
+        <h1>Fast Feedback</h1>
 
         {auth.user && <div>Current user: {auth.user.email}</div>}
 
@@ -33,14 +32,13 @@ const Index = () => {
         )}
       </main>
 
-      <footer className={styles.footer}>
+      <footer>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
+          Powered by <img src="/vercel.svg" alt="Vercel Logo" />
         </a>
       </footer>
     </div>
