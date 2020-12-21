@@ -1,4 +1,5 @@
 // PLUGINS IMPORTS //
+import Head from 'next/head'
 
 // COMPONENTS IMPORTS //
 import { useAuth } from 'lib/auth'
@@ -10,6 +11,9 @@ const Index = () => {
 
   return (
     <div>
+      <Head>
+        <title>Fast Feedback</title>
+      </Head>
       <main>
         <h1>Fast Feedback</h1>
 

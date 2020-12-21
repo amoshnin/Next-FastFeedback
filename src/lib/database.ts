@@ -3,7 +3,7 @@ import firebase from './firebase'
 
 // EXTRA IMPORTS //
 import { collections } from './constants'
-import { IUser } from 'typescript/auth'
+import { IUser } from 'ts/auth'
 
 /////////////////////////////////////////////////////////////////////////////
 
