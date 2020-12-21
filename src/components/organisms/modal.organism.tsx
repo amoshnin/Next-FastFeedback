@@ -10,20 +10,20 @@ import {
   ModalBody,
   ModalCloseButton
 } from '@chakra-ui/react'
-import { Formik, Form, useFormik } from 'formik'
+import { useFormik } from 'formik'
 import * as yup from 'yup'
 
 // COMPONENTS IMPORTS //
+
+// EXTRA IMPORTS //
+import { capitalize, convertArrayToObject } from 'utils/string.utils'
 
 /////////////////////////////////////////////////////////////////////////////
 
 interface PropsType {
   title: string
-  content: {
-    fields: Array<{ title: string; placeholder: string }>
-    validation?: any
-  }
-  returnData?: (data) => void
+  fields: Array<{ title: string; placeholder: string; validation?: any }>
+  returnData?: (data: { [key: string]: string }) => void
 
   config: {
     isOpen: boolean
@@ -38,28 +38,19 @@ interface PropsType {
 
 const ModalOrganism: FC<PropsType> = (props) => {
   const initialRef = useRef()
-  const { config, content } = props
+  const { config, fields } = props
   const { isOpen, onOpen, onClose } = config
 
-  const fields = content.fields.reduce(
-    (acc, cur) => ({ ...acc, [cur.title]: '' }),
-    {}
-  )
+  const fieldsObject = convertArrayToObject(fields, 'title', undefined)
+  const validationObject = convertArrayToObject(fields, 'title', 'validation')
+  const ValidationSchema = yup.object().shape(validationObject)
 
-  const ValidationSchema = yup.object().shape(content.validation)
-
-  const {
-    handleSubmit,
-    errors,
-    values,
-    handleBlur,
-    handleChange,
-    touched
-  } = useFormik({
-    initialValues: fields,
+  const { handleSubmit, errors, values, handleChange, touched } = useFormik({
+    initialValues: fieldsObject,
     validationSchema: ValidationSchema,
     onSubmit: (values) => {
-      console.log(values, 'injje')
+      props.returnData(values)
+      props.config.onClose()
     }
   })
 
@@ -74,16 +65,15 @@ const ModalOrganism: FC<PropsType> = (props) => {
           <ModalCloseButton />
 
           <ModalBody pb={6}>
-            {content.fields.map((item, index) => (
+            {fields.map((item, index) => (
               <FormControl mt={index > 0 && 4}>
-                <FormLabel>{item.title}</FormLabel>
+                <FormLabel>{capitalize(item.title)}</FormLabel>
                 <Input
                   ref={initialRef}
                   name={item.title}
                   placeholder={item.placeholder}
                   value={values[item.title]}
                   onChange={handleChange}
-                  onBlur={handleBlur[item.title]}
                 />
                 {errors[item.title] && touched[item.title] && (
                   <div>{errors[item.title]}</div>

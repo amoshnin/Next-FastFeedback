@@ -3,7 +3,7 @@ import { useState, useEffect, useContext, createContext } from 'react'
 import firebase from './firebase'
 
 // EXTRA IMPORTS //
-import { IUser } from 'ts/auth'
+import { IUser } from 'ts/auth.type'
 import { createUser } from './database'
 
 /////////////////////////////////////////////////////////////////////////////

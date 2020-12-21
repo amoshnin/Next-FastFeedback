@@ -8,6 +8,7 @@ import DashboardTemplate from 'components/templates/Dashboard.template'
 // EXTRA IMPORTS //
 import { useAuth } from 'lib/auth'
 import ModalOrganism from 'components/organisms/modal.organism'
+import { createSite } from 'lib/database'
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -34,6 +35,11 @@ const Dashboard = () => {
         onClick: () => {}
       }
 
+  console.log({
+    fields: yup.string().required('Required'),
+    lola: yup.string().required('Required')
+  })
+
   return (
     <>
       <DashboardTemplate>
@@ -59,21 +65,23 @@ const Dashboard = () => {
       {hasPlan && (
         <ModalOrganism
           title={'Add site'}
-          content={{
-            fields: [
-              { title: 'Name', placeholder: 'Spacex website' },
-              { title: 'Link', placeholder: 'https://website.com' }
-            ],
-            validation: {
-              Name: yup.string().required('Required'),
-              Link: yup.string().required('Required')
+          fields={[
+            {
+              title: 'name',
+              placeholder: 'Spacex website',
+              validation: yup.string().required('Required')
+            },
+            {
+              title: 'link',
+              placeholder: 'https://website.com',
+              validation: yup.string().required('Required')
             }
-          }}
+          ]}
           config={{ isOpen, onOpen, onClose }}
           buttons={{
             save: 'Create'
           }}
-          returnData={(values) => {}}
+          returnData={(values) => createSite(values)}
         />
       )}
     </>

@@ -3,7 +3,8 @@ import firebase from './firebase'
 
 // EXTRA IMPORTS //
 import { collections } from './constants'
-import { IUser } from 'ts/auth'
+import { IUser } from 'ts/auth.type'
+import { ISite } from 'ts/site.type'
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -16,4 +17,8 @@ export const createUser = (uid: string, data: IUser) => {
       .doc(uid)
       .set({ uid, ...data }, { merge: true })
   } catch (error) {}
+}
+
+export const createSite = (data: ISite) => {
+  return firestore.collection(collections.sites).add(data)
 }
