@@ -1,4 +1,5 @@
 // PLUGINS IMPORTS //
+import { Button, Heading, Text, Code } from '@chakra-ui/react'
 import Head from 'next/head'
 
 // COMPONENTS IMPORTS //
@@ -15,20 +16,20 @@ const Index = () => {
         <title>Fast Feedback</title>
       </Head>
       <main>
-        <h1>Fast Feedback</h1>
+        <Heading>Fast Feedback</Heading>
 
         {auth.user && (
-          <p>
-            Current user: <code>{auth.user.email}</code>
-          </p>
+          <Text>
+            Current user: <Code>{auth.user.email}</Code>
+          </Text>
         )}
 
         {auth.user ? (
-          <button onClick={(e) => auth.logout()}>Logout</button>
+          <Button onClick={(e) => auth.logout()}>Logout</Button>
         ) : (
-          <button onClick={(e) => auth.loginWithGitHub()}>
+          <Button onClick={(e) => auth.loginWithGitHub()}>
             Sign in with GitHub
-          </button>
+          </Button>
         )}
       </main>
     </div>
