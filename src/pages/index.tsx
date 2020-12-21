@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import Head from "next/Head"
+import Head from "next/head"
 
 // COMPONENTS IMPORTS //
 
