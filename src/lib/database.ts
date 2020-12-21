@@ -19,6 +19,6 @@ export const createUser = (uid: string, data: IUser) => {
   } catch (error) {}
 }
 
-export const createSite = (data: ISite) => {
-  return firestore.collection(collections.sites).add(data)
+export const createSite = async (data: ISite) => {
+  return await firestore.collection(collections.sites).add(data)
 }

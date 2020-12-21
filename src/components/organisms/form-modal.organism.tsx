@@ -10,7 +10,7 @@ import {
   ModalBody,
   ModalCloseButton
 } from '@chakra-ui/react'
-import { useFormik } from 'formik'
+import { useFormik, FormikHelpers, FormikValues } from 'formik'
 import * as yup from 'yup'
 
 // COMPONENTS IMPORTS //
@@ -23,7 +23,10 @@ import { capitalize, convertArrayToObject } from 'utils/string.utils'
 interface PropsType {
   title: string
   fields: Array<{ title: string; placeholder: string; validation?: any }>
-  returnData?: (data: { [key: string]: string }) => void
+  returnData?: (
+    data: { [key: string]: string },
+    actions: FormikHelpers<FormikValues>
+  ) => void
 
   config: {
     isOpen: boolean
@@ -48,16 +51,12 @@ const FormModalOrganism: FC<PropsType> = (props) => {
   const { handleSubmit, errors, values, handleChange, touched } = useFormik({
     initialValues: fieldsObject,
     validationSchema: ValidationSchema,
-    onSubmit: (values) => {
-      props.returnData(values)
-      props.config.onClose()
-    }
+    onSubmit: (values, actions) => props.returnData(values, actions)
   })
 
   return (
     <>
       <Button onClick={onOpen}>Open Modal</Button>
-
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

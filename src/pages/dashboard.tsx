@@ -1,5 +1,12 @@
 // PLUGINS IMPORTS //
-import { Button, Heading, Text, Flex, useDisclosure } from '@chakra-ui/react'
+import {
+  Button,
+  Heading,
+  Text,
+  Flex,
+  useDisclosure,
+  useToast
+} from '@chakra-ui/react'
 import * as yup from 'yup'
 
 // COMPONENTS IMPORTS //
@@ -15,6 +22,7 @@ import { createSite } from 'lib/database'
 const Dashboard = () => {
   const { user } = useAuth()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const toast = useToast()
 
   if (!user) {
     return <div>Loading...</div>
@@ -76,7 +84,34 @@ const Dashboard = () => {
           buttons={{
             save: 'Create'
           }}
-          returnData={(values) => createSite(values)}
+          returnData={async ({ name, link }, actions) => {
+            await createSite({
+              name,
+              link,
+              authorId: user.uid,
+              createdAt: new Date().toISOString()
+            })
+              .then(() => {
+                onClose()
+                toast({
+                  title: 'Success!',
+                  description: "We've created your site",
+                  status: 'success',
+                  duration: 5000,
+                  isClosable: true
+                })
+                actions.resetForm()
+              })
+              .catch(() => {
+                toast({
+                  title: 'Error occured!',
+                  description: 'Something went wrong...',
+                  status: 'error',
+                  duration: 5000,
+                  isClosable: true
+                })
+              })
+          }}
         />
       )}
     </>
