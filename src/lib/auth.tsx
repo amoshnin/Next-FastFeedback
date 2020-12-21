@@ -4,7 +4,7 @@ import firebase from './firebase-client'
 
 // EXTRA IMPORTS //
 import { IUser } from 'ts/auth.type'
-import { createUser } from './database'
+import { createUser } from './db-client'
 
 /////////////////////////////////////////////////////////////////////////////
 

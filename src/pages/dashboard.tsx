@@ -9,12 +9,12 @@ import { FormModalAtom } from 'components/atoms'
 import {
   DashboardTable,
   DashboardTableSkeleton,
-  DashboardBlank
+  DashboardBlank,
 } from 'components/organisms'
 
 // EXTRA IMPORTS //
 import { useAuth } from 'lib/auth'
-import { createSite } from 'lib/database'
+import { createSite } from 'lib/db-client'
 import { fetcher } from 'utils/api.utils'
 
 /////////////////////////////////////////////////////////////////////////////
@@ -46,36 +46,36 @@ const Dashboard = () => {
           {
             title: 'name',
             placeholder: 'Spacex website',
-            validation: yup.string().required('Required')
+            validation: yup.string().required('Required'),
           },
           {
             title: 'link',
             placeholder: 'https://website.com',
-            validation: yup.string().required('Required')
-          }
+            validation: yup.string().required('Required'),
+          },
         ]}
         config={{ isOpen, onOpen, onClose }}
         buttons={{
-          save: 'Create'
+          save: 'Create',
         }}
         returnData={async ({ name, link }, actions) => {
-          const newObject = {
+          const newSite = {
             name,
             link,
             authorId: user.uid,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           }
 
-          await createSite(newObject)
+          await createSite(newSite)
             .then(() => {
               onClose()
-              mutate({ sites: [...data.sites, newObject] }, false)
+              mutate({ sites: [...data.sites, newSite] }, false)
               toast({
                 title: 'Success!',
                 description: "We've created your site",
                 status: 'success',
                 duration: 5000,
-                isClosable: true
+                isClosable: true,
               })
               actions.resetForm()
             })
@@ -85,7 +85,7 @@ const Dashboard = () => {
                 description: 'Something went wrong...',
                 status: 'error',
                 duration: 5000,
-                isClosable: true
+                isClosable: true,
               })
             })
         }}

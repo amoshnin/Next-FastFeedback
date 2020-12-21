@@ -3,8 +3,9 @@ import firebase from './firebase-client'
 
 // EXTRA IMPORTS //
 import { collections } from './constants'
+
 import { IUser } from 'ts/auth.type'
-import { ISite } from 'ts/site.type'
+import { ISite } from 'ts/types.type'
 
 /////////////////////////////////////////////////////////////////////////////
 
