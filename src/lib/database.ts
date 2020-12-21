@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import firebase from './firebase'
+import firebase from './firebase-client'
 
 // EXTRA IMPORTS //
 import { collections } from './constants'
