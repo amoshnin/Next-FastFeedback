@@ -1,0 +1,13 @@
+// PLUGINS IMPORTS //
+
+// COMPONENTS IMPORTS //
+
+// EXTRA IMPORTS //
+
+/////////////////////////////////////////////////////////////////////////////
+
+const Index = () => {
+  return <div></div>
+}
+
+export default Index
