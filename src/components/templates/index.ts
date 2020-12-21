@@ -1,1 +1,1 @@
-export { default as DashboardTemplate } from './Dashboard.template'
+export { default as DashboardTemplate } from './Dashboard'

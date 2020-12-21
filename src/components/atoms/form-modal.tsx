@@ -39,10 +39,10 @@ interface PropsType {
   }
 }
 
-const FormModalOrganism: FC<PropsType> = (props) => {
+const FormModal: FC<PropsType> = (props) => {
   const initialRef = useRef()
   const { config, fields } = props
-  const { isOpen, onOpen, onClose } = config
+  const { isOpen, onClose } = config
 
   const fieldsObject = convertArrayToObject(fields, 'title', undefined)
   const validationObject = convertArrayToObject(fields, 'title', 'validation')
@@ -55,44 +55,39 @@ const FormModalOrganism: FC<PropsType> = (props) => {
   })
 
   return (
-    <>
-      <Button onClick={onOpen}>Open Modal</Button>
-      <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{props.title}</ModalHeader>
-          <ModalCloseButton />
+    <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>{props.title}</ModalHeader>
+        <ModalCloseButton />
 
-          <ModalBody pb={6}>
-            {fields.map((item, index) => (
-              <FormControl mt={index > 0 && 4}>
-                <FormLabel>{capitalize(item.title)}</FormLabel>
-                <Input
-                  ref={initialRef}
-                  name={item.title}
-                  placeholder={item.placeholder}
-                  value={values[item.title]}
-                  onChange={handleChange}
-                />
-                {errors[item.title] && touched[item.title] && (
-                  <div>{errors[item.title]}</div>
-                )}
-              </FormControl>
-            ))}
-          </ModalBody>
+        <ModalBody pb={6}>
+          {fields.map((item, index) => (
+            <FormControl mt={index > 0 && 4}>
+              <FormLabel>{capitalize(item.title)}</FormLabel>
+              <Input
+                ref={initialRef}
+                name={item.title}
+                placeholder={item.placeholder}
+                value={values[item.title]}
+                onChange={handleChange}
+              />
+              {errors[item.title] && touched[item.title] && (
+                <div>{errors[item.title]}</div>
+              )}
+            </FormControl>
+          ))}
+        </ModalBody>
 
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={handleSubmit as any}>
-              {props.buttons.save || 'Save'}
-            </Button>
-            <Button onClick={onClose}>
-              {props.buttons.cancel || 'Cancel'}
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={handleSubmit as any}>
+            {props.buttons.save || 'Save'}
+          </Button>
+          <Button onClick={onClose}>{props.buttons.cancel || 'Cancel'}</Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   )
 }
 
-export default FormModalOrganism
+export default FormModal

@@ -11,7 +11,7 @@ import * as yup from 'yup'
 
 // COMPONENTS IMPORTS //
 import { DashboardTemplate } from 'components/templates'
-import { FormModalOrganism } from 'components/organisms'
+import { FormModalAtom } from 'components/atoms'
 
 // EXTRA IMPORTS //
 import { useAuth } from 'lib/auth'
@@ -45,7 +45,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <DashboardTemplate>
+      <DashboardTemplate onOpen={onOpen}>
         <Flex
           width="100%"
           backgroundColor={'white'}
@@ -66,7 +66,7 @@ const Dashboard = () => {
       </DashboardTemplate>
 
       {hasPlan && (
-        <FormModalOrganism
+        <FormModalAtom
           title={'Add site'}
           fields={[
             {
