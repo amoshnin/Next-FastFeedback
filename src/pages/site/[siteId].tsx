@@ -3,10 +3,11 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import { FC } from 'react'
 
 // COMPONENTS IMPORTS //
+import { Feedback } from 'components/templates'
 
 // EXTRA IMPORTS //
 import { IFeedback } from 'ts/types.type'
-import { getAllFeedback } from 'lib/db-admin'
+import { getAllFeedback, getAllSites } from 'lib/db-admin'
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -14,8 +15,14 @@ interface PropsType {
   initialFeedback: Array<IFeedback>
 }
 
-const SiteFeedback: FC<PropsType> = (props) => {
-  return <div>hell world</div>
+const SiteFeedbackPage: FC<PropsType> = (props) => {
+  return (
+    <>
+      {props.initialFeedback.map((el) => (
+        <Feedback key={el.id} feedback={el} />
+      ))}
+    </>
+  )
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
@@ -26,16 +33,15 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const sites = await getAllSites()
+  const paths = sites.map((site) => ({
+    params: { siteId: site.id.toString() },
+  }))
+
   return {
-    paths: [
-      {
-        params: {
-          siteId: 'U6fxRyyZ8X7hmD3kPFiG',
-        },
-      },
-    ],
+    paths,
     fallback: false,
   }
 }
 
-export default SiteFeedback
+export default SiteFeedbackPage

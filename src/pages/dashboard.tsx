@@ -4,7 +4,7 @@ import * as yup from 'yup'
 import useSWR from 'swr'
 
 // COMPONENTS IMPORTS //
-import { DashboardTemplate } from 'components/templates'
+import { Dashboard } from 'components/templates'
 import { FormModalAtom } from 'components/atoms'
 import {
   DashboardTable,
@@ -19,16 +19,15 @@ import { fetcher } from 'utils/api.utils'
 
 /////////////////////////////////////////////////////////////////////////////
 
-const Dashboard = () => {
+const DashboardPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { data, mutate } = useSWR('/api/sites', fetcher)
   const { user } = useAuth()
   const toast = useToast()
 
-  console.log(data)
   return (
     <>
-      <DashboardTemplate onOpen={onOpen}>
+      <Dashboard onOpen={onOpen}>
         {data ? (
           data.sites && data.sites.length > 0 ? (
             <DashboardTable sites={data.sites} />
@@ -38,7 +37,7 @@ const Dashboard = () => {
         ) : (
           <DashboardTableSkeleton />
         )}
-      </DashboardTemplate>
+      </Dashboard>
 
       <FormModalAtom
         title={'Add site'}
@@ -94,4 +93,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default DashboardPage

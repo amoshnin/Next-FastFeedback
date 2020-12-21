@@ -8,7 +8,7 @@ import { LogoIcon } from 'styles'
 
 /////////////////////////////////////////////////////////////////////////////
 
-const Index = () => {
+const IndexPage = () => {
   const auth = useAuth()
 
   return (
@@ -36,4 +36,4 @@ const Index = () => {
   )
 }
 
-export default Index
+export default IndexPage

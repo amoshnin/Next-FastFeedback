@@ -1,1 +1,2 @@
-export { default as DashboardTemplate } from './Dashboard'
+export { default as Dashboard } from './Dashboard'
+export { default as Feedback } from './Feedback'

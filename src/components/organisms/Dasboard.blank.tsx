@@ -22,13 +22,13 @@ const DashboardBlank: FC<PropsType> = (props) => {
         title: "You haven't added any sites",
         text: "Let's get started",
         button: 'Add your First Site',
-        onClick: props.onOpen
+        onClick: props.onOpen,
       }
     : {
         title: 'Get feedback on your site',
         text: 'Start today, then grow with us 🌱',
         button: 'Upgrade to Starter',
-        onClick: () => {}
+        onClick: () => {},
       }
 
   return (
