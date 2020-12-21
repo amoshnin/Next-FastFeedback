@@ -6,14 +6,12 @@ import { useAuth } from 'lib/auth'
 
 // EXTRA IMPORTS //
 import styles from 'styles/Home.module.css'
-import { userInfo } from 'os'
 
 /////////////////////////////////////////////////////////////////////////////
 
 const Index = () => {
   const auth = useAuth()
 
-  console.log(auth)
   return (
     <div className={styles.container}>
       <Head>

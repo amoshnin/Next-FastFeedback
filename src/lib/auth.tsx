@@ -2,10 +2,9 @@
 import { useState, useEffect, useContext, createContext } from 'react'
 import firebase from './firebase'
 
-// COMPONENTS IMPORTS //
-
 // EXTRA IMPORTS //
-import { IUser } from 'typescript/Auth'
+import { IUser } from 'typescript/auth'
+import { createUser } from './database'
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -34,6 +33,7 @@ const useProvideAuth = () => {
     if (rawUser) {
       const account = formatUser(rawUser)
 
+      createUser(account.uid, account)
       setUser(account)
       return account
     } else {
@@ -72,11 +72,10 @@ const useProvideAuth = () => {
 }
 
 function formatUser(user): IUser {
-  console.log(user)
   return {
     uid: user.uid,
     email: user.email,
     name: user.displayName,
-    provider: user.providerData[0].providerId
+    provider: user.providerData && user.providerData[0].providerId
   }
 }
