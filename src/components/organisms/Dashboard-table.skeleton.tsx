@@ -1,8 +1,8 @@
 // PLUGINS IMPORTS //
 import { Box, Skeleton } from '@chakra-ui/react'
-import { Table, Tr, Th, Td } from './Dashboard-table.components'
 
 // COMPONENTS IMPORTS //
+import { Table, Tr, Th, Td } from './Dashboard-table.components'
 
 /////////////////////////////////////////////////////////////////////////////
 

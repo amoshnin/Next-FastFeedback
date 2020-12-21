@@ -1,11 +1,12 @@
 // PLUGINS IMPORTS //
-import { Box, Skeleton } from '@chakra-ui/react'
-import { Table, Tr, Th, Td } from './Dashboard-table.components'
-import { ISite } from 'ts/site.type'
+import { Box } from '@chakra-ui/react'
 import { FC } from 'react'
 import Link from 'next/link'
+import dayjs from 'dayjs'
 
 // COMPONENTS IMPORTS //
+import { Table, Tr, Th, Td } from './Dashboard-table.components'
+import { ISite } from 'ts/site.type'
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -27,13 +28,13 @@ const DashboardTable: FC<PropsType> = (props) => {
       </thead>
       <tbody>
         {props.sites.map((site) => (
-          <Box as="tr">
-            <Td>{site.name}</Td>
+          <Box as="tr" key={site.id}>
+            <Td fontWeight={'medium'}>{site.name}</Td>
             <Td>{site.link}</Td>
             <Td>
               <Link href={''}>View Feedback</Link>
             </Td>
-            <Td>{site.createdAt}</Td>
+            <Td>{dayjs(site.createdAt).format('MMM mm, YYYY HH:MM')}</Td>
           </Box>
         ))}
       </tbody>

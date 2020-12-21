@@ -5,6 +5,7 @@ import { collections } from 'lib/constants'
 export default async (_: NextApiRequest, res: NextApiResponse) => {
   const snapshot = await db.collection(collections.sites).get()
 
+  console.log('request')
   let list = []
   snapshot.forEach(async (doc) => list.push({ id: doc.id, ...doc.data() }))
 

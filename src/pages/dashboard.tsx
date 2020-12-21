@@ -21,12 +21,11 @@ import { fetcher } from 'utils/api.utils'
 
 const Dashboard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { data } = useSWR('/api/sites', fetcher)
+  const { data, mutate } = useSWR('/api/sites', fetcher)
   const { user } = useAuth()
   const toast = useToast()
 
-  const hasPlan = user !== undefined
-
+  console.log(data)
   return (
     <>
       <DashboardTemplate onOpen={onOpen}>
@@ -60,14 +59,17 @@ const Dashboard = () => {
           save: 'Create'
         }}
         returnData={async ({ name, link }, actions) => {
-          await createSite({
+          const newObject = {
             name,
             link,
             authorId: user.uid,
             createdAt: new Date().toISOString()
-          })
+          }
+
+          await createSite(newObject)
             .then(() => {
               onClose()
+              mutate({ sites: [...data.sites, newObject] }, false)
               toast({
                 title: 'Success!',
                 description: "We've created your site",
