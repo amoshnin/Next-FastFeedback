@@ -5,13 +5,13 @@ import { ChakraProvider } from '@chakra-ui/react'
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
-import 'styles/globals.css'
+import theme from 'styles/theme'
 
 /////////////////////////////////////////////////////////////////////////////
 
 const App = ({ Component, pageProps }) => {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <AuthProvider>
         <Component {...pageProps} />
       </AuthProvider>

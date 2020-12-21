@@ -61,3 +61,5 @@ const icons = {
 }
 
 const theme = extendTheme({ fonts, fontWeights, icons })
+
+export default theme
