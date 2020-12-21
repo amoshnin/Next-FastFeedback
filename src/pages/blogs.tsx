@@ -6,12 +6,12 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-const Index = () => {
+const Blogs = () => {
   return (
     <>
-      <h1>Index</h1>
+      <h1>Blogs</h1>
     </>
   )
 }
 
-export default Index
+export default Blogs

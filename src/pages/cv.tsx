@@ -6,12 +6,12 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-const Index = () => {
+const CV = () => {
   return (
     <>
-      <h1>Index</h1>
+      <h1>CV</h1>
     </>
   )
 }
 
-export default Index
+export default CV

@@ -6,12 +6,12 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-const Index = () => {
+const About = () => {
   return (
     <>
-      <h1>Index</h1>
+      <h1>About</h1>
     </>
   )
 }
 
-export default Index
+export default About
