@@ -60,6 +60,9 @@ const icons = {
   }
 }
 
-const theme = extendTheme({ fonts, fontWeights, icons })
+const colors = {
+  primary: '#0a84ff'
+}
+const theme = extendTheme({ colors, fonts, fontWeights, icons })
 
 export default theme
