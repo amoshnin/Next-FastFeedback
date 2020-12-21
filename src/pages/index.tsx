@@ -11,9 +11,9 @@ import { userInfo } from 'os'
 /////////////////////////////////////////////////////////////////////////////
 
 const Index = () => {
-  // const auth = useAuth()
+  const auth = useAuth()
 
-  // console.log(auth)
+  console.log(auth)
   return (
     <div className={styles.container}>
       <Head>
@@ -23,7 +23,7 @@ const Index = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Fast Feedback</h1>
-        {/* 
+
         {auth.user && <div>Current user: {auth.user.email}</div>}
 
         {auth.user ? (
@@ -32,7 +32,7 @@ const Index = () => {
           <button onClick={(e) => auth.loginWithGitHub()}>
             Sign in with GitHub
           </button>
-        )} */}
+        )}
       </main>
 
       <footer className={styles.footer}>
