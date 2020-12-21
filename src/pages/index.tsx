@@ -15,7 +15,7 @@ const Index = () => {
 
   console.log(auth)
   return (
-    <div className={styles.container}>
+      <div className={styles.container}>
       <Head>
         <title>Fast Feedback</title>
         <link rel="icon" href="/favicon.ico" />
