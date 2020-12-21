@@ -10,7 +10,6 @@ import { createUser } from './database'
 
 const AuthContext = createContext(undefined)
 export const AuthProvider = (props) => {
-  console.log(props)
   const auth = useProvideAuth()
   return (
     <AuthContext.Provider value={auth}>{props.children}</AuthContext.Provider>
@@ -77,6 +76,7 @@ function formatUser(user): IUser {
     uid: user.uid,
     email: user.email,
     name: user.displayName,
+    photoUrl: user.photoURL,
     provider: user.providerData && user.providerData[0].providerId
   }
 }
