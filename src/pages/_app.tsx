@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import { ProvideAuth } from 'lib/auth'
+import { AuthProvider } from 'lib/auth'
 
 // COMPONENTS IMPORTS //
 
@@ -10,9 +10,9 @@ import 'styles/globals.css'
 
 const App = ({ Component, pageProps }) => {
   return (
-    <ProvideAuth>
+    <AuthProvider>
       <Component {...pageProps} />
-    </ProvideAuth>
+    </AuthProvider>
   )
 }
 
