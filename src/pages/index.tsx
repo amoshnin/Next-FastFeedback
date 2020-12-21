@@ -6,6 +6,7 @@ import Head from 'next/head'
 // EXTRA IMPORTS //
 import styles from 'styles/Home.module.css'
 import { useAuth } from 'lib/auth'
+import { userInfo } from 'os'
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -29,9 +30,13 @@ const Index = (props) => {
           <code className={styles.code}>pages/index.js</code>
         </p>
 
-        <button onClick={(e) => auth.loginWithGitHub()}>
-          Sign in with GitHub
-        </button>
+        {auth.user ? (
+          <button onClick={(e) => auth.logout()}>Logout</button>
+        ) : (
+          <button onClick={(e) => auth.loginWithGitHub()}>
+            Sign in with GitHub
+          </button>
+        )}
         <div>{JSON.stringify(auth.user)}</div>
       </main>
 

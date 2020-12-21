@@ -9,7 +9,11 @@ export const ProvideAuth = (props) => {
   )
 }
 
-export const useAuth = (): { loginWithGitHub: () => void; user: any } => {
+export const useAuth = (): {
+  loginWithGitHub: () => void
+  logout: () => void
+  user: any
+} => {
   return useContext(AuthContext)
 }
 
