@@ -6,14 +6,20 @@ import { useAuth } from 'lib/auth'
 
 // EXTRA IMPORTS //
 import styles from 'styles/Home.module.css'
+ 
 
 /////////////////////////////////////////////////////////////////////////////
 
 const Index = () => {
   const auth = useAuth()
 
+ 
   return (
     <div className={styles.container}>
+ 
+  return (
+      <div className={styles.container}>
+ 
       <Head>
         <title>Fast Feedback</title>
         <link rel="icon" href="/favicon.ico" />

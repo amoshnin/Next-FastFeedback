@@ -33,7 +33,9 @@ const useProvideAuth = () => {
     if (rawUser) {
       const account = formatUser(rawUser)
 
+ 
       createUser(account.uid, account)
+ 
       setUser(account)
       return account
     } else {
@@ -72,10 +74,13 @@ const useProvideAuth = () => {
 }
 
 function formatUser(user): IUser {
+ 
   return {
     uid: user.uid,
     email: user.email,
     name: user.displayName,
+ 
     provider: user.providerData && user.providerData[0].providerId
+ 
   }
 }
