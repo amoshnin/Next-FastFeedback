@@ -3,11 +3,11 @@ import { Button, Heading, Text, Flex, useDisclosure } from '@chakra-ui/react'
 import * as yup from 'yup'
 
 // COMPONENTS IMPORTS //
-import DashboardTemplate from 'components/templates/Dashboard.template'
+import { DashboardTemplate } from 'components/templates'
+import { FormModalOrganism } from 'components/organisms'
 
 // EXTRA IMPORTS //
 import { useAuth } from 'lib/auth'
-import ModalOrganism from 'components/organisms/modal.organism'
 import { createSite } from 'lib/database'
 
 /////////////////////////////////////////////////////////////////////////////
@@ -35,11 +35,6 @@ const Dashboard = () => {
         onClick: () => {}
       }
 
-  console.log({
-    fields: yup.string().required('Required'),
-    lola: yup.string().required('Required')
-  })
-
   return (
     <>
       <DashboardTemplate>
@@ -63,7 +58,7 @@ const Dashboard = () => {
       </DashboardTemplate>
 
       {hasPlan && (
-        <ModalOrganism
+        <FormModalOrganism
           title={'Add site'}
           fields={[
             {

@@ -36,7 +36,7 @@ interface PropsType {
   }
 }
 
-const ModalOrganism: FC<PropsType> = (props) => {
+const FormModalOrganism: FC<PropsType> = (props) => {
   const initialRef = useRef()
   const { config, fields } = props
   const { isOpen, onOpen, onClose } = config
@@ -96,4 +96,4 @@ const ModalOrganism: FC<PropsType> = (props) => {
   )
 }
 
-export default ModalOrganism
+export default FormModalOrganism
