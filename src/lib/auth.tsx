@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
 import { useState, useEffect, useContext, createContext } from 'react'
 import firebase from './firebase-client'
+import cookie from 'js-cookie'
 
 // EXTRA IMPORTS //
 import { IUser } from 'ts/auth.type'
@@ -29,16 +30,20 @@ export const useAuth = (): {
 const useProvideAuth = () => {
   const [user, setUser] = useState(null)
 
-  const handleUser = (rawUser) => {
+  const handleUser = async (rawUser): Promise<IUser> => {
+    const cookieName = 'auth'
     if (rawUser) {
-      const account = formatUser(rawUser)
+      const account = await formatUser(rawUser)
+      const { token, ...userWithoutToken } = account
+      createUser(account.uid, userWithoutToken)
 
-      createUser(account.uid, account)
+      cookie.set(cookieName, 'cookie', { expires: 1 })
       setUser(account)
       return account
     } else {
       setUser(false)
-      return false
+      cookie.remove(cookieName)
+      return undefined
     }
   }
 
@@ -71,8 +76,11 @@ const useProvideAuth = () => {
   }
 }
 
-function formatUser(user): IUser {
+async function formatUser(user): Promise<IUser> {
+  const token = await firebase.auth().currentUser.getIdToken()
+
   return {
+    token,
     uid: user.uid,
     email: user.email,
     name: user.displayName,

@@ -25,15 +25,17 @@ export const getAllFeedback = async (
   })
 }
 
-export const getAllSites = async (): Promise<{
-  data: Array<ISite>
-  error: any
-}> => {
-  return await respond(async () => {
-    const snapshot = await firestore.collection(collections.sites).get()
-    let sites = []
-    snapshot.forEach(async (doc) => sites.push({ id: doc.id, ...doc.data() }))
+export const getAllSites = async (
+  isPublic: boolean,
+  uid?: string
+): Promise<{ data: Array<ISite> }> => {
+  const ref = isPublic
+    ? firestore.collection(collections.sites)
+    : firestore.collection(collections.sites).where('authorId', '==', uid)
 
-    return sortByDate(sites, 'createdAt')
-  })
+  const snapshot = await ref.get()
+  let sites = []
+  snapshot.forEach(async (doc) => sites.push({ id: doc.id, ...doc.data() }))
+
+  return { data: sortByDate(sites, 'createdAt') }
 }

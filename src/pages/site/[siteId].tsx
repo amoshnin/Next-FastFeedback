@@ -107,7 +107,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data, error } = await getAllSites()
+  const { data } = await getAllSites(true)
   if (data) {
     const paths = data.map((site) => ({
       params: { siteId: site.id.toString() },

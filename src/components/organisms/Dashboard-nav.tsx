@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import { Flex, Link, Avatar } from '@chakra-ui/react'
+import { Flex, Link, Avatar, Button } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { FC } from 'react'
 
@@ -12,7 +12,7 @@ import { useAuth } from 'lib/auth'
 interface PropsType {}
 
 const DashboardNav: FC<PropsType> = (props) => {
-  const { user } = useAuth()
+  const auth = useAuth()
 
   return (
     <Flex
@@ -46,9 +46,15 @@ const DashboardNav: FC<PropsType> = (props) => {
           </NextLink>
         </Flex>
         <Flex justifyContent="center" alignItems="center">
+          {auth.user && (
+            <Button mr={6} variant={'ghost'} onClick={() => auth.logout()}>
+              Logout
+            </Button>
+          )}
+
           <NextLink href="/account" passHref>
             <Link>
-              <Avatar size="sm" src={user?.photoUrl} />
+              <Avatar size="sm" src={auth.user?.photoUrl} />
             </Link>
           </NextLink>
         </Flex>

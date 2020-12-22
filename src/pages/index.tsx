@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
-import { Button, Heading, Text, Code, Box, Flex } from '@chakra-ui/react'
+import { Button, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
+import Link from 'next/link'
 
 // COMPONENTS IMPORTS //
 import { useAuth } from 'lib/auth'
@@ -21,12 +22,34 @@ const IndexPage = () => {
     >
       <Head>
         <title>Fast Feedback</title>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: ` if (document.cookie && document.cookie.includes('auth')) {
+            window.location.href = "/dashboard"
+          }`,
+          }}
+        />
       </Head>
 
       <LogoIcon boxSize={28} />
 
       {auth.user ? (
-        <Button onClick={(e) => auth.logout()}>Logout</Button>
+        <Link href={'/dashboard'}>
+          <Button
+            backgroundColor="gray.900"
+            color="white"
+            fontWeight="medium"
+            mt={4}
+            maxW="200px"
+            _hover={{ bg: 'gray.700' }}
+            _active={{
+              bg: 'gray.800',
+              transform: 'scale(0.95)',
+            }}
+          >
+            View Dashboard
+          </Button>
+        </Link>
       ) : (
         <Button mt={4} size={'sm'} onClick={(e) => auth.loginWithGitHub()}>
           Sign in with GitHub

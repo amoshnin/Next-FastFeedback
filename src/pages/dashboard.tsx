@@ -21,8 +21,12 @@ import { fetcher } from 'utils/api.utils'
 
 const DashboardPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { data, mutate } = useSWR('/api/sites', fetcher)
   const { user } = useAuth()
+
+  const { data, mutate } = useSWR(
+    user ? ['/api/sites', user.token] : null,
+    fetcher
+  )
   const toast = useToast()
 
   return (

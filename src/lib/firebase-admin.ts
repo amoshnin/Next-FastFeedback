@@ -8,10 +8,11 @@ if (!admin.apps.length) {
         /\\n/g,
         '\n'
       ),
-      clientEmail: process.env.NEXT_PUBLIC_FIREBASE_CLIENT_EMAIL
+      clientEmail: process.env.NEXT_PUBLIC_FIREBASE_CLIENT_EMAIL,
     }),
-    databaseURL: `https://${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}.firebaseio.com`
+    databaseURL: `https://${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}.firebaseio.com`,
   })
 }
 
 export const firestore = admin.firestore()
+export const auth = admin.auth()
