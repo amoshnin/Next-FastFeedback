@@ -5,7 +5,7 @@ import firebase from './firebase-client'
 import { collections } from './constants'
 
 import { IUser } from 'ts/auth.type'
-import { ISite } from 'ts/types.type'
+import { ISite, IFeedback } from 'ts/types.type'
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -22,4 +22,8 @@ export const createUser = (uid: string, data: IUser) => {
 
 export const createSite = async (data: ISite) => {
   return await firestore.collection(collections.sites).add(data)
+}
+
+export const createFeedback = async (data: IFeedback) => {
+  return await firestore.collection(collections.feedback).add(data)
 }

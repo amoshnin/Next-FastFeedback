@@ -1,11 +1,11 @@
 // PLUGINS IMPORTS //
 import { Box } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import { FC } from 'react'
-import Link from 'next/link'
-import dayjs from 'dayjs'
 
 // COMPONENTS IMPORTS //
 import { Table, Tr, Th, Td } from './Dashboard-table.components'
+import { dateFormat } from 'utils/string.utils'
 import { ISite } from 'ts/types.type'
 
 /////////////////////////////////////////////////////////////////////////////
@@ -32,9 +32,9 @@ const DashboardTable: FC<PropsType> = (props) => {
             <Td fontWeight={'medium'}>{site.name}</Td>
             <Td>{site.link}</Td>
             <Td>
-              <Link href={''}>View Feedback</Link>
+              <NextLink href={`/site/${site.id}`}>View Feedback</NextLink>
             </Td>
-            <Td>{dayjs(site.createdAt).format('MMM MM, YYYY HH:mm')}</Td>
+            <Td>{dateFormat(site.createdAt)}</Td>
           </Box>
         ))}
       </tbody>

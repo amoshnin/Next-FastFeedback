@@ -68,7 +68,7 @@ const DashboardPage = () => {
           await createSite(newSite)
             .then(() => {
               onClose()
-              mutate({ sites: [...data.sites, newSite] }, false)
+              mutate({ sites: [newSite, ...data.sites] }, false)
               toast({
                 title: 'Success!',
                 description: "We've created your site",

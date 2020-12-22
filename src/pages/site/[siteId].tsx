@@ -1,13 +1,26 @@
 // PLUGINS IMPORTS //
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  useToast,
+} from '@chakra-ui/react'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { FC } from 'react'
+import { useRouter } from 'next/router'
+import { FC, useRef, useState } from 'react'
 
 // COMPONENTS IMPORTS //
 import { Feedback } from 'components/templates'
 
 // EXTRA IMPORTS //
-import { IFeedback } from 'ts/types.type'
 import { getAllFeedback, getAllSites } from 'lib/db-admin'
+import { createFeedback } from 'lib/db-client'
+import { useAuth } from 'lib/auth'
+
+import { FeedbackStatus } from 'ts/types.type'
+import { IFeedback } from 'ts/types.type'
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -16,31 +29,94 @@ interface PropsType {
 }
 
 const SiteFeedbackPage: FC<PropsType> = (props) => {
+  const [localState, setLocalState] = useState([])
+  const router = useRouter()
+  const { user } = useAuth()
+  const { siteId } = router.query as any
+  const inputRef = useRef(null)
+  const toast = useToast()
+
+  const onSubmit = async (e) => {
+    const text = inputRef.current.value
+    e.preventDefault()
+    if (text && text.length > 0) {
+      const newFeedback: IFeedback = {
+        author: user.name,
+        authorId: user.uid,
+        siteId,
+        text,
+        createdAt: new Date().toISOString(),
+        provider: user.provider,
+        status: FeedbackStatus[FeedbackStatus.PENDING],
+        rating: 0,
+      }
+      inputRef.current.value = ''
+      await createFeedback(newFeedback).then(() => {
+        setLocalState((prev) => [...prev, newFeedback])
+        toast({
+          title: 'Success!',
+          description: 'Your comment succesfully added',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        })
+      })
+    } else {
+      toast({
+        title: 'Error occured!',
+        description: 'Make sure your comment is valid',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+    }
+  }
+
   return (
-    <>
-      {props.initialFeedback.map((el) => (
+    <Box
+      display="flex"
+      flexDirection={'column'}
+      width={'full'}
+      maxWidth="700px"
+      margin={'0 auto'}
+    >
+      <Box as="form" onSubmit={onSubmit}>
+        <FormControl my={8}>
+          <FormLabel>Comment</FormLabel>
+          <Input type="comment" ref={inputRef} />
+          <Button type={'submit'} mt={2} fontWeight="medium">
+            Add Comment
+          </Button>
+        </FormControl>
+      </Box>
+
+      {[...localState, ...props.initialFeedback].map((el) => (
         <Feedback key={el.id} feedback={el} />
       ))}
-    </>
+    </Box>
   )
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const { siteId } = ctx.params
-  const feedback = await getAllFeedback(siteId as string)
+  const { data, error } = await getAllFeedback(siteId as string)
 
-  return { props: { initialFeedback: feedback } }
+  if (data) {
+    return { props: { initialFeedback: data } }
+  }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const sites = await getAllSites()
-  const paths = sites.map((site) => ({
-    params: { siteId: site.id.toString() },
-  }))
+  const { data, error } = await getAllSites()
+  if (data) {
+    const paths = data.map((site) => ({
+      params: { siteId: site.id.toString() },
+    }))
 
-  return {
-    paths,
-    fallback: false,
+    return {
+      paths,
+      fallback: false,
+    }
   }
 }
 

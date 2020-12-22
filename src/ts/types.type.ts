@@ -6,7 +6,7 @@ export interface ISite {
   createdAt: string
 }
 
-enum FeedbackStatus {
+export enum FeedbackStatus {
   PENDING,
 }
 
@@ -18,6 +18,6 @@ export interface IFeedback {
   provider: string
   rating: number
   siteId: string
-  status: FeedbackStatus
+  status: string
   text: string
 }

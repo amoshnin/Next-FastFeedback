@@ -21,7 +21,7 @@ export const AuthProvider = (props) => {
 export const useAuth = (): {
   loginWithGitHub: () => void
   logout: () => void
-  user: any
+  user: IUser
 } => {
   return useContext(AuthContext)
 }
@@ -67,7 +67,7 @@ const useProvideAuth = () => {
   return {
     user,
     loginWithGitHub,
-    logout
+    logout,
   }
 }
 
@@ -77,6 +77,6 @@ function formatUser(user): IUser {
     email: user.email,
     name: user.displayName,
     photoUrl: user.photoURL,
-    provider: user.providerData && user.providerData[0].providerId
+    provider: user.providerData && user.providerData[0].providerId,
   }
 }
