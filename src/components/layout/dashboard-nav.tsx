@@ -11,16 +11,11 @@ import { useAuth } from 'lib/auth'
 
 interface PropsType {}
 
-const DashboardNav: FC<PropsType> = (props) => {
+const DashboardNavbar: FC<PropsType> = (props) => {
   const auth = useAuth()
 
   return (
-    <Flex
-      backgroundColor="white"
-      mb={[8, 16]}
-      w="full"
-      borderTop="5px solid #0a84ff"
-    >
+    <Flex backgroundColor="white" w="full" borderTop="5px solid #0a84ff">
       <Flex
         alignItems="center"
         justifyContent="space-between"
@@ -63,4 +58,4 @@ const DashboardNav: FC<PropsType> = (props) => {
   )
 }
 
-export default DashboardNav
+export default DashboardNavbar

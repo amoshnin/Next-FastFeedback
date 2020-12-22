@@ -2,7 +2,7 @@
 import { Box, Skeleton } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS //
-import { Table, Tr, Th, Td } from './Dashboard-table.components'
+import { Table, Tr, Th, Td } from './table.components'
 
 /////////////////////////////////////////////////////////////////////////////
 

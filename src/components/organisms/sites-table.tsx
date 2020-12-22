@@ -4,7 +4,7 @@ import NextLink from 'next/link'
 import { FC } from 'react'
 
 // COMPONENTS IMPORTS //
-import { Table, Tr, Th, Td } from './Dashboard-table.components'
+import { Table, Tr, Th, Td } from '../molecules/table/table.components'
 import { dateFormat } from 'utils/string.utils'
 import { ISite } from 'ts/types.type'
 

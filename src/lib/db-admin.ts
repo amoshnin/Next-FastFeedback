@@ -28,7 +28,7 @@ export const getAllFeedback = async (
 export const getAllSites = async (
   isPublic: boolean,
   uid?: string
-): Promise<{ data: Array<ISite> }> => {
+): Promise<{ sites: Array<ISite> }> => {
   const ref = isPublic
     ? firestore.collection(collections.sites)
     : firestore.collection(collections.sites).where('authorId', '==', uid)
@@ -37,5 +37,19 @@ export const getAllSites = async (
   let sites = []
   snapshot.forEach(async (doc) => sites.push({ id: doc.id, ...doc.data() }))
 
-  return { data: sortByDate(sites, 'createdAt') }
+  return { sites: sortByDate(sites, 'createdAt') }
+}
+
+export const getUserFeedback = async (
+  uid: string
+): Promise<{ feedback: Array<ISite> }> => {
+  const snapshot = await firestore
+    .collection(collections.feedback)
+    .where('authorId', '==', uid)
+    .get()
+
+  let feedback = []
+  snapshot.forEach(async (doc) => feedback.push({ id: doc.id, ...doc.data() }))
+
+  return { feedback: sortByDate(feedback, 'createdAt') }
 }

@@ -84,7 +84,7 @@ const SiteFeedbackPage: FC<PropsType> = (props) => {
         <FormControl my={8}>
           <FormLabel>Comment</FormLabel>
           <Input type="comment" ref={inputRef} />
-          <Button type={'submit'} mt={2} fontWeight="medium">
+          <Button type={'submit'} mt={4} fontWeight="medium">
             Add Comment
           </Button>
         </FormControl>
@@ -102,14 +102,14 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const { data, error } = await getAllFeedback(siteId as string)
 
   if (data) {
-    return { props: { initialFeedback: data } }
+    return { props: { initialFeedback: data }, revalidate: 1 }
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await getAllSites(true)
-  if (data) {
-    const paths = data.map((site) => ({
+  const { sites } = await getAllSites(true)
+  if (sites) {
+    const paths = sites.map((site) => ({
       params: { siteId: site.id.toString() },
     }))
 

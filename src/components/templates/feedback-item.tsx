@@ -2,11 +2,11 @@
 import { FC } from 'react'
 import { IFeedback } from 'ts/types.type'
 import { Box, Heading, Text, Divider } from '@chakra-ui/react'
-import { dateFormat } from 'utils/string.utils'
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
+import { dateFormat } from 'utils/string.utils'
 
 /////////////////////////////////////////////////////////////////////////////
 

@@ -4,13 +4,9 @@ import * as yup from 'yup'
 import useSWR from 'swr'
 
 // COMPONENTS IMPORTS //
-import { Dashboard } from 'components/templates'
 import { FormModalAtom } from 'components/atoms'
-import {
-  DashboardTable,
-  DashboardTableSkeleton,
-  DashboardBlank,
-} from 'components/organisms'
+import Table from 'components/molecules/table'
+import { DashboardTable } from 'components/organisms'
 
 // EXTRA IMPORTS //
 import { useAuth } from 'lib/auth'
@@ -19,7 +15,7 @@ import { fetcher } from 'utils/api.utils'
 
 /////////////////////////////////////////////////////////////////////////////
 
-const DashboardPage = () => {
+const SitesDashboard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useAuth()
 
@@ -29,19 +25,43 @@ const DashboardPage = () => {
   )
   const toast = useToast()
 
+  const hasPlan = true
+  const blankContent = hasPlan
+    ? {
+        title: "You haven't added any sites",
+        text: "Let's get started",
+        buttonText: 'Add your First Site',
+        onClick: onOpen,
+      }
+    : {
+        title: 'Get feedback on your site',
+        text: 'Start today, then grow with us 🌱',
+        buttonText: 'Upgrade to Starter',
+        onClick: () => {},
+      }
+
   return (
     <>
-      <Dashboard onOpen={onOpen}>
+      <Table>
+        <Table.Header
+          title={'My Sites'}
+          subtitle={'Sites'}
+          button={{
+            onClick: () => {},
+            text: '+ Add Site',
+          }}
+        />
+
         {data ? (
           data.sites && data.sites.length > 0 ? (
             <DashboardTable sites={data.sites} />
           ) : (
-            <DashboardBlank onOpen={onOpen} />
+            <Table.Blank content={blankContent} />
           )
         ) : (
-          <DashboardTableSkeleton />
+          <Table.Skeleton />
         )}
-      </Dashboard>
+      </Table>
 
       <FormModalAtom
         title={'Add site'}
@@ -97,4 +117,4 @@ const DashboardPage = () => {
   )
 }
 
-export default DashboardPage
+export default SitesDashboard
