@@ -21,7 +21,10 @@ export const createUser = (uid: string, data: IUser) => {
 }
 
 export const createSite = async (data: ISite) => {
-  return await firestore.collection(collections.sites).add(data)
+  const site = firestore.collection(collections.sites).doc()
+  site.set(data)
+
+  return site
 }
 
 export const createFeedback = async (data: IFeedback) => {
