@@ -1,12 +1,14 @@
 // PLUGINS IMPORTS //
 import { useState, useEffect, useContext, createContext } from 'react'
-import firebase from './firebase-client'
 import { useRouter, NextRouter } from 'next/router'
 import cookie from 'js-cookie'
 
+// COMPONENTS IMPORTS //
+import firebase from './firebase-client'
+import { createUser } from './db-client'
+
 // EXTRA IMPORTS //
 import { IUser } from 'ts/auth.type'
-import { createUser } from './db-client'
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -45,7 +47,6 @@ const useProvideAuth = (router: NextRouter) => {
       setUser(account)
       return account
     } else {
-      router.push('/')
       setUser(false)
       cookie.remove(cookieName)
       return undefined
@@ -72,7 +73,10 @@ const useProvideAuth = (router: NextRouter) => {
     return firebase
       .auth()
       .signOut()
-      .then(() => handleUser(false))
+      .then(() => {
+        router.push('/')
+        handleUser(false)
+      })
   }
 
   useEffect(() => {

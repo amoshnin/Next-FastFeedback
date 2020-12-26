@@ -83,7 +83,12 @@ const SiteFeedbackPage: FC<PropsType> = (props) => {
         <FormControl my={8}>
           <FormLabel>Comment</FormLabel>
           <Input type="comment" ref={inputRef} />
-          <Button type={'submit'} mt={4} fontWeight="medium">
+          <Button
+            type={'submit'}
+            mt={4}
+            fontWeight="medium"
+            isDisabled={router.isFallback}
+          >
             Add Comment
           </Button>
         </FormControl>
@@ -114,7 +119,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
       paths,
-      fallback: false,
+      fallback: true,
     }
   }
 }
