@@ -8,7 +8,7 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton
+  ModalCloseButton,
 } from '@chakra-ui/react'
 import { useFormik, FormikHelpers, FormikValues } from 'formik'
 import * as yup from 'yup'
@@ -51,7 +51,7 @@ const FormModal: FC<PropsType> = (props) => {
   const { handleSubmit, errors, values, handleChange, touched } = useFormik({
     initialValues: fieldsObject,
     validationSchema: ValidationSchema,
-    onSubmit: (values, actions) => props.returnData(values, actions)
+    onSubmit: (values, actions) => props.returnData(values, actions),
   })
 
   return (
@@ -63,7 +63,7 @@ const FormModal: FC<PropsType> = (props) => {
 
         <ModalBody pb={6}>
           {fields.map((item, index) => (
-            <FormControl mt={index > 0 && 4}>
+            <FormControl key={item.title} mt={index > 0 && 4}>
               <FormLabel>{capitalize(item.title)}</FormLabel>
               <Input
                 ref={initialRef}
