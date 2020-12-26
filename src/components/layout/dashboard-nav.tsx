@@ -32,7 +32,7 @@ const DashboardNavbar: FC<PropsType> = (props) => {
         <Flex align="center">
           <NextLink href="/" passHref>
             <Link>
-              <LogoIcon name="logo" size="24px" mr={8} />
+              <LogoIcon name="logo" fontSize={28} mr={8} />
             </Link>
           </NextLink>
           <NextLink href="/sites" passHref>

@@ -89,28 +89,27 @@ const SitesDashboard = () => {
             createdAt: new Date().toISOString(),
           }
 
-          await createSite(newSite)
-            .then(() => {
-              onClose()
-              mutate({ sites: [newSite, ...data.sites] }, false)
-              toast({
-                title: 'Success!',
-                description: "We've created your site",
-                status: 'success',
-                duration: 5000,
-                isClosable: true,
-              })
-              actions.resetForm()
+          try {
+            const { id } = await createSite(newSite)
+            onClose()
+            mutate({ sites: [{ ...newSite, id }, ...data.sites] }, false)
+            toast({
+              title: 'Success!',
+              description: "We've created your site",
+              status: 'success',
+              duration: 5000,
+              isClosable: true,
             })
-            .catch(() => {
-              toast({
-                title: 'Error occured!',
-                description: 'Something went wrong...',
-                status: 'error',
-                duration: 5000,
-                isClosable: true,
-              })
+            actions.resetForm()
+          } catch (error) {
+            toast({
+              title: 'Error occured!',
+              description: 'Something went wrong...',
+              status: 'error',
+              duration: 5000,
+              isClosable: true,
             })
+          }
         }}
       />
     </>
