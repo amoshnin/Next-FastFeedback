@@ -1,9 +1,8 @@
 // PLUGINS IMPORTS //
 
 // COMPONENTS IMPORTS //
-import FeedbackDashboard from 'components/templates/feedback-dashboard'
+import { FeedbackDashboard } from 'components/organisms'
 import { DashboardNav } from 'components/layout'
-import { Box } from '@chakra-ui/react'
 
 // EXTRA IMPORTS //
 

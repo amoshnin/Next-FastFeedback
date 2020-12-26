@@ -1,10 +1,12 @@
 // PLUGINS IMPORTS //
-import { Box } from '@chakra-ui/react'
+import { Box, Link } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { FC } from 'react'
 
 // COMPONENTS IMPORTS //
 import { Table, Tr, Th, Td } from '../molecules/table/table.components'
+
+// EXTRA IMPORTS //
 import { dateFormat } from 'utils/string.utils'
 import { ISite } from 'ts/types.type'
 
@@ -32,7 +34,11 @@ const DashboardTable: FC<PropsType> = (props) => {
             <Td fontWeight={'medium'}>{site.name}</Td>
             <Td>{site.link}</Td>
             <Td>
-              <NextLink href={`/site/${site.id}`}>View Feedback</NextLink>
+              <NextLink href={`/site/${site.id}`}>
+                <Link color={'blue.500'} fontWeight={'medium'}>
+                  View Feedback
+                </Link>
+              </NextLink>
             </Td>
             <Td>{dateFormat(site.createdAt)}</Td>
           </Box>

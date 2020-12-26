@@ -27,3 +27,7 @@ export const createSite = async (data: ISite) => {
 export const createFeedback = async (data: IFeedback) => {
   return await firestore.collection(collections.feedback).add(data)
 }
+
+export const deleteFeedback = async (id: string) => {
+  return await firestore.collection(collections.feedback).doc(id).delete()
+}

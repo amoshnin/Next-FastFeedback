@@ -6,11 +6,11 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Heading,
-  Button,
 } from '@chakra-ui/react'
 import { FC } from 'react'
 
 // COMPONENTS IMPORTS //
+import { Button } from 'components/atoms'
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -35,20 +35,7 @@ const DashboardHeader: FC<ITableHeader> = (props) => {
         <Heading mb={8}>{props.title}</Heading>
 
         {props.button && (
-          <Button
-            id="add-site-modal-button"
-            backgroundColor="gray.900"
-            onClick={props.button.onClick}
-            color="white"
-            fontWeight="medium"
-            _hover={{ bg: 'gray.700' }}
-            _active={{
-              bg: 'gray.800',
-              transform: 'scale(0.95)',
-            }}
-          >
-            {props.button.text}
-          </Button>
+          <Button onClick={props.button.onClick}>{props.button.text}</Button>
         )}
       </Flex>
     </Box>

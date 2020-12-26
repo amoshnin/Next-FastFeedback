@@ -1,10 +1,10 @@
 // PLUGINS IMPORTS //
 
 // COMPONENTS IMPORTS //
+import { SitesDashboard } from 'components/organisms'
+import { DashboardNav } from 'components/layout'
 
 // EXTRA IMPORTS //
-import SitesDashboard from 'components/templates/sites-dashboard'
-import { DashboardNav } from 'components/layout'
 
 /////////////////////////////////////////////////////////////////////////////
 

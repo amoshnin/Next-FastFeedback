@@ -22,6 +22,7 @@ const GlobalStyle = (props) => {
         styles={css`
           html {
             scroll-behavior: smooth;
+            background-color: #edf2f7;
           }
           #__next {
             display: flex;

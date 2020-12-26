@@ -4,9 +4,9 @@ import * as yup from 'yup'
 import useSWR from 'swr'
 
 // COMPONENTS IMPORTS //
-import { FormModalAtom } from 'components/atoms'
+import { FormModal } from 'components/atoms'
 import Table from 'components/molecules/table'
-import { DashboardTable } from 'components/organisms'
+import { SitesTable } from 'components/organisms'
 
 // EXTRA IMPORTS //
 import { useAuth } from 'lib/auth'
@@ -47,14 +47,14 @@ const SitesDashboard = () => {
           title={'My Sites'}
           subtitle={'Sites'}
           button={{
-            onClick: () => {},
+            onClick: onOpen,
             text: '+ Add Site',
           }}
         />
 
         {data ? (
           data.sites && data.sites.length > 0 ? (
-            <DashboardTable sites={data.sites} />
+            <SitesTable sites={data.sites} />
           ) : (
             <Table.Blank content={blankContent} />
           )
@@ -63,7 +63,7 @@ const SitesDashboard = () => {
         )}
       </Table>
 
-      <FormModalAtom
+      <FormModal
         title={'Add site'}
         fields={[
           {

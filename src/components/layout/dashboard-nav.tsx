@@ -5,6 +5,8 @@ import { FC } from 'react'
 
 // COMPONENTS IMPORTS //
 import { LogoIcon } from 'styles'
+
+// EXTRA IMPORTS //
 import { useAuth } from 'lib/auth'
 
 /////////////////////////////////////////////////////////////////////////////

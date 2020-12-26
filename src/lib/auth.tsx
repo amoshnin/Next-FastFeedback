@@ -19,8 +19,9 @@ export const AuthProvider = (props) => {
 
 /////////////////////////////////////////////////////////////////////////////
 
+type IAuthProvider = 'github' | 'google'
 export const useAuth = (): {
-  loginWithGitHub: () => void
+  loginWithProvider: (provider: IAuthProvider) => void
   logout: () => void
   user: IUser
 } => {
@@ -47,10 +48,17 @@ const useProvideAuth = () => {
     }
   }
 
-  const loginWithGitHub = () => {
+  const loginWithProvider = (provider: IAuthProvider) => {
+    const popup =
+      provider === 'github'
+        ? new firebase.auth.GithubAuthProvider()
+        : provider === 'google'
+        ? new firebase.auth.GoogleAuthProvider()
+        : null
+
     return firebase
       .auth()
-      .signInWithPopup(new firebase.auth.GithubAuthProvider())
+      .signInWithPopup(popup)
       .then((response) => handleUser(response))
   }
 
@@ -71,7 +79,7 @@ const useProvideAuth = () => {
 
   return {
     user,
-    loginWithGitHub,
+    loginWithProvider,
     logout,
   }
 }

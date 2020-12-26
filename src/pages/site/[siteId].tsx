@@ -12,14 +12,13 @@ import { useRouter } from 'next/router'
 import { FC, useRef, useState } from 'react'
 
 // COMPONENTS IMPORTS //
-import { Feedback } from 'components/templates'
+import { FeedbackItem } from 'components/organisms'
 
 // EXTRA IMPORTS //
 import { getAllFeedback, getAllSites } from 'lib/db-admin'
 import { createFeedback } from 'lib/db-client'
 import { useAuth } from 'lib/auth'
 
-import { FeedbackStatus } from 'ts/types.type'
 import { IFeedback } from 'ts/types.type'
 
 /////////////////////////////////////////////////////////////////////////////
@@ -47,7 +46,7 @@ const SiteFeedbackPage: FC<PropsType> = (props) => {
         text,
         createdAt: new Date().toISOString(),
         provider: user.provider,
-        status: FeedbackStatus[FeedbackStatus.PENDING],
+        status: 'pending',
         rating: 0,
       }
       inputRef.current.value = ''
@@ -91,7 +90,7 @@ const SiteFeedbackPage: FC<PropsType> = (props) => {
       </Box>
 
       {[...localState, ...props.initialFeedback].map((el) => (
-        <Feedback key={el.id} feedback={el} />
+        <FeedbackItem key={el.id} feedback={el} />
       ))}
     </Box>
   )
@@ -99,7 +98,7 @@ const SiteFeedbackPage: FC<PropsType> = (props) => {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const { siteId } = ctx.params
-  const { data, error } = await getAllFeedback(siteId as string)
+  const { data } = await getAllFeedback(siteId as string)
 
   if (data) {
     return { props: { initialFeedback: data }, revalidate: 1 }
