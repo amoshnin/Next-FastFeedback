@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
 import { useState, useEffect, useContext, createContext } from 'react'
 import firebase from './firebase-client'
+import { useRouter, NextRouter } from 'next/router'
 import cookie from 'js-cookie'
 
 // EXTRA IMPORTS //
@@ -11,7 +12,9 @@ import { createUser } from './db-client'
 
 const AuthContext = createContext(undefined)
 export const AuthProvider = (props) => {
-  const auth = useProvideAuth()
+  const router = useRouter()
+  const auth = useProvideAuth(router)
+
   return (
     <AuthContext.Provider value={auth}>{props.children}</AuthContext.Provider>
   )
@@ -28,7 +31,7 @@ export const useAuth = (): {
   return useContext(AuthContext)
 }
 
-const useProvideAuth = () => {
+const useProvideAuth = (router: NextRouter) => {
   const [user, setUser] = useState(null)
 
   const handleUser = async (rawUser): Promise<IUser> => {
@@ -42,6 +45,7 @@ const useProvideAuth = () => {
       setUser(account)
       return account
     } else {
+      router.push('/')
       setUser(false)
       cookie.remove(cookieName)
       return undefined
@@ -49,6 +53,8 @@ const useProvideAuth = () => {
   }
 
   const loginWithProvider = (provider: IAuthProvider) => {
+    router.push('/sites')
+
     const popup =
       provider === 'github'
         ? new firebase.auth.GithubAuthProvider()
